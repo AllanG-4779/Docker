@@ -38,8 +38,8 @@ FROM amazoncorretto:17
 
 
 COPY --from=PACKAGING ./target/**.jar /demo.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+
+CMD  ["java", "-jar", "demo.jar"]
 
 
 
