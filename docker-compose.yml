@@ -1,0 +1,35 @@
+version: "3"
+services:
+  api:
+    image: springboot-api
+    ports:
+      - 8000:8080
+    build: .
+    container_name: api_frontend
+    depends_on:
+      - backend
+    env_file: ./.env
+      
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+    restart: always
+  backend:
+    image: mysql:8.0.29
+    ports:
+      - 3308:3306
+    container_name: backend_db  
+    env_file:
+      - ./.env
+      
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - studentDb:/var/lib/mysql
+volumes:
+  studentDb:
+
