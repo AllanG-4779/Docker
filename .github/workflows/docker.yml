@@ -1,38 +1,4 @@
 
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@AllanG-4779
-AllanG-4779 /
-Docker
-Public
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-
-    Settings
-
-docker CI pipleline CI to docker hub #1
-
-Summary
-
-    Usage
-    Workflow file
-
-Jobs
-
-    build
-
-Workflow file for this run
-.github/workflows/docker.yml at 174c2ef
 # Name the action itself
 name: CI to docker hub
 #Set the event when this should be done and the branches it should work on
@@ -53,8 +19,13 @@ jobs:
         with:
           username: ${{secrets.DOCKER_HUB_USERNAME}}
           password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
-      - name: Set up docker build
+      - name: Set up docker buildx
         id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: v0.7.0
+      - name: docker build and push
+        id: docker_build
         uses: docker/build-push-action@v2
         with: 
           context: ./
