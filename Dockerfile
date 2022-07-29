@@ -41,7 +41,7 @@ FROM amazoncorretto:17
 
 COPY --from=PACKAGING ./target/**.jar /demo.jar
 
-RUN  gunicorn --bind 0.0.0.0:$PORT wsgi
+
 
 CMD  ["java", "-jar", "demo.jar"]
 
