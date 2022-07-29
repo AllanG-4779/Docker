@@ -1,0 +1,68 @@
+
+Skip to content
+Pull requests
+Issues
+Marketplace
+Explore
+@AllanG-4779
+AllanG-4779 /
+Docker
+Public
+
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+
+    Settings
+
+docker CI pipleline CI to docker hub #1
+
+Summary
+
+    Usage
+    Workflow file
+
+Jobs
+
+    build
+
+Workflow file for this run
+.github/workflows/docker.yml at 174c2ef
+# Name the action itself
+name: CI to docker hub
+#Set the event when this should be done and the branches it should work on
+on:
+  push:
+    branches: ["master"]
+# Specify exactly what is to be done to accomplish this action and in what environment it should be executed
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # What are the steps to be followed in order to make this work
+    steps:
+    # Checkout a repo action enables the workflow to access the repository
+      - name: Checkout to our repo
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOCKER_HUB_USERNAME}}
+          password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
+      - name: Set up docker build
+        id: buildx
+        uses: docker/build-push-action@v2
+        with: 
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/firstboot:latest
+      - name: Image digest 
+        run: echo ${{steps.docker_build.output.digest}}
+          
+      
+        
