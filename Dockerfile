@@ -9,6 +9,7 @@
 FROM maven:3.8-amazoncorretto-17 AS PACKAGING
 # copy the src and the pom 
 COPY ./pom.xml  ./pom.xml
+# 
 
 RUN mvn dependency:go-offline -B
 
