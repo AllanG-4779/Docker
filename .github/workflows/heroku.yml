@@ -17,4 +17,4 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APPNAME}}
           docker_file_directory: ./
           docker_file_name: Dockerfile
-          process_type:web
+          process_type: web
